@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Instrumento{
-    private String name;
+    private String nombre;
     private int identificacion; // 1 identificar, 2 manejar
     private String condicion;
     private boolean tieneValidez;
@@ -11,7 +11,7 @@ public class Instrumento{
     List<String> autores;
 
     public Instrumento(String name, int identificacion, String condicion, boolean tieneValidez, String cita, String forma) {
-        this.name = name;
+        this.nombre = name;
         this.identificacion = identificacion;
         this.condicion = condicion;
         this.tieneValidez = tieneValidez;
@@ -20,12 +20,16 @@ public class Instrumento{
         autores = new ArrayList<>();
     }
 
+    public void anadirAutor(String autor){
+        autores.add(autor);
+    }
+
     public String getName() {
-        return name;
+        return nombre;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nombre = name;
     }
 
     public int getIdentificacion() {
@@ -69,6 +73,15 @@ public class Instrumento{
     }
 
     public String toString(){
-        return  null; // no se en q formato ponerlo
+        String validez = tieneValidez ? "Sí" : "No";
+        String autor = "";
+        StringBuilder autoresStringBuilder = new StringBuilder(autor);
+        for(String a:autores)
+            autoresStringBuilder.append(a + "\n");
+
+        return  "Nombre: "  + nombre + "\n"  + "Forma: " + forma + "\n"
+                + "Identificación: " + identificacion + "\n" +
+                "Condición: " + condicion + "\n" + "Validez: " + validez + "\n"
+                + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.toString();
     }
 }
