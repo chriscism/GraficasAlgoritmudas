@@ -62,6 +62,10 @@ public class SistemaInstrumentos{
                 .forEach(System.out::println);
     }
 
+    public void eliminarInstrumentos(Integer claveAEliminar){
+
+    }
+
 
 
 
