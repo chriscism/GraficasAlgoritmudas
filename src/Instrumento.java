@@ -1,3 +1,4 @@
+import javax.lang.model.type.ArrayType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class Instrumento{
     public String getName() {
         return nombre;
     }
+
+    public ArrayList<String> getAutores(){ return (ArrayList<String>) autores;}
 
     public void setName(String name) {
         this.nombre = name;
