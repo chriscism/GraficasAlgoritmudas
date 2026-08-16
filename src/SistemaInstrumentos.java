@@ -8,6 +8,10 @@ public class SistemaInstrumentos{
         instrumentos = new HashMap<>();
     }
 
+    public void mostrarPorAutor(String nombreAutor){
+        instrumentos.entrySet().stream().filter(i->i.getValue().getAutores().contains(nombreAutor)).forEach(System.out::println);
+    }
+
     public void mostrarPorIdentificacion(int identificacion){
         instrumentos.entrySet().stream()
                 .filter(i -> i.getValue().getIdentificacion() == identificacion)

@@ -84,4 +84,8 @@ public class Instrumento{
                 "Condición: " + condicion + "\n" + "Validez: " + validez + "\n"
                 + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.toString();
     }
+
+    public List<String> getAutores(){
+        return autores;
+    }
 }
