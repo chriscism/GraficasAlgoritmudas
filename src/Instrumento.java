@@ -10,8 +10,9 @@ public class Instrumento{
     private  String cita;
     private  String forma;
     List<String> autores;
+    private int clave;
 
-    public Instrumento(String name, int identificacion, String condicion, boolean tieneValidez, String cita, String forma) {
+    public Instrumento(String name, int identificacion, String condicion, boolean tieneValidez, String cita, String forma, int clave) {
         this.nombre = name;
         this.identificacion = identificacion;
         this.condicion = condicion;
@@ -19,6 +20,7 @@ public class Instrumento{
         this.cita = cita;
         this.forma = forma;
         autores = new ArrayList<>();
+        this.clave=clave;
     }
 
     public void anadirAutor(String autor){
@@ -82,9 +84,17 @@ public class Instrumento{
         for(String a:autores)
             autoresStringBuilder.append(a + "\n");
 
-        return  "Nombre: "  + nombre + "\n"  + "Forma: " + forma + "\n"
+        return "Clave" + clave + "\n" + "Nombre: "  + nombre + "\n"  + "Forma: " + forma + "\n"
                 + "Identificación: " + identificacion + "\n" +
                 "Condición: " + condicion + "\n" + "Validez: " + validez + "\n"
                 + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.toString();
+    }
+
+    public List<String> getAutores(){
+        return autores;
+    }
+
+    public int getClave(){
+        return clave;
     }
 }

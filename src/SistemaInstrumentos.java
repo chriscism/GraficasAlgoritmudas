@@ -1,14 +1,24 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.Random;
 
 public class SistemaInstrumentos{
     Map<Integer, Instrumento> instrumentos;
+    private Path ruta;
     String archivo = "src/instrumentos.txt";
     public SistemaInstrumentos(){
         instrumentos = new HashMap<>();
         obtenerInstrumentosArchivo();
+    }
+
+    public void mostrarPorAutor(String nombreAutor){
+        instrumentos.entrySet().stream().filter(i->i.getValue().getAutores().contains(nombreAutor)).forEach(System.out::println);
     }
 
     public void mostrarPorIdentificacion(int identificacion){
@@ -59,6 +69,19 @@ public class SistemaInstrumentos{
                 .stream()
                 .filter(i -> i.getValue().getCondicion().equals(condicion) && i.getValue().isTieneValidez() == tieneValidez)
                 .forEach(System.out::println);
+    }
+
+    public void eliminarInstrumentos(Integer claveAEliminar){
+        instrumentos.remove(claveAEliminar);
+        try{
+            List<String> archivoConInstrumentoBorrado=Files.lines(ruta).filter(linea->{
+                String[] lineaDeTexto=linea.split(",");
+                return lineaDeTexto.length>0 && !claveAEliminar.toString().equals(lineaDeTexto[0]);
+            }).collect(Collectors.toList());
+            Files.write(ruta, archivoConInstrumentoBorrado);
+        }catch (IOException aviso){
+            System.out.println("Error al leer el archivo: ");
+        }
     }
 
     /*
