@@ -1,15 +1,14 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.util.Random;
 
 public class SistemaInstrumentos{
     Map<Integer, Instrumento> instrumentos;
     String archivo = "src/instrumentos.txt";
     public SistemaInstrumentos(){
         instrumentos = new HashMap<>();
+        obtenerInstrumentosArchivo();
     }
 
     public void mostrarPorIdentificacion(int identificacion){
@@ -70,6 +69,7 @@ public class SistemaInstrumentos{
     public void guardarEnArchivo(Instrumento instrumento){
         File file = new File(archivo);
         crearArchivo(file);
+        int clave = generarClave();
         try {
             FileWriter fw = new FileWriter(file,true);
             BufferedWriter escribir = new BufferedWriter(fw);
@@ -77,6 +77,7 @@ public class SistemaInstrumentos{
             //Aqui es donde se agrega toda la informacion
             // falta generar la clave para identificar cada uno y poder borrar
             escribir.write(
+                    clave + "," +
                     instrumento.getName() + "," +
                             instrumento.getIdentificacion() + "," +
                             instrumento.getCondicion() + "," +
@@ -86,16 +87,19 @@ public class SistemaInstrumentos{
                             String.join(";", instrumento.getAutores()) //Separa por ; los autores para que sean uno solo al regresar por ,
             );
             escribir.close();
+            instrumentos.put(clave,instrumento);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public String generarClave(){
-        if (archivo.isEmpty()) return "1";
-
-        //Se tiene que leer el archivo y ver las claves para generar la siguiente en este siguiente punto
-        return "";
+    public int generarClave(){
+        Random random = new Random();
+        int clave = 0;
+        do{
+            clave = random.nextInt(676767);
+        }while(instrumentos.containsKey(clave));
+        return clave;
     }
 
     private void crearArchivo(File file){
@@ -109,6 +113,43 @@ public class SistemaInstrumentos{
         }
     }
 
+    //Este metodo se usa para agregar todos los instrumentos ya creados en el archivo con anterioridad al hashmap
+    private void obtenerInstrumentosArchivo(){
+        instrumentos.clear();
+        try {
+            FileReader fr = new FileReader(archivo);
+            BufferedReader leer = new BufferedReader(fr);
+            String linea;
+
+            while ((linea = leer.readLine()) != null) {
+                String[] datosInstrumento = linea.split(",");
+                int clave = Integer.parseInt(datosInstrumento[0]);
+
+                //Agregar todos los datos del archivo al instrumento
+                Instrumento instrumento = new Instrumento(
+                        datosInstrumento[1],
+                        Integer.parseInt(datosInstrumento[2]),
+                        datosInstrumento[3],
+                        Boolean.parseBoolean(datosInstrumento[4]),
+                        datosInstrumento[5],
+                        datosInstrumento[6]
+                );
+
+                //Descomponer los autores con ; para agregarlos al instrumento
+                String[] autores = datosInstrumento[7].split(";");
+                for (String autor : autores){
+                    instrumento.anadirAutor(autor);
+                }
+
+                instrumentos.put(clave,instrumento); //Agregar instrumento al hashmap
+            }
+
+            leer.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }
