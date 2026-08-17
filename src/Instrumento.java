@@ -12,7 +12,7 @@ public class Instrumento{
     List<String> autores;
     private int clave;
 
-    public Instrumento(String name, int identificacion, String condicion, boolean tieneValidez, String cita, String forma, int clave) {
+    public Instrumento(String name, int identificacion, String condicion, boolean tieneValidez, String cita, String forma) {
         this.nombre = name;
         this.identificacion = identificacion;
         this.condicion = condicion;
@@ -90,9 +90,9 @@ public class Instrumento{
                 + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.toString();
     }
 
-    public List<String> getAutores(){
-        return autores;
-    }
+//    public List<String> getAutores(){
+//        return autores;
+//    }
 
     public int getClave(){
         return clave;
