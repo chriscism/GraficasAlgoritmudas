@@ -1,8 +1,14 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SistemaInstrumentos{
     Map<Integer, Instrumento> instrumentos;
+    private Path ruta;
 
     public SistemaInstrumentos(){
         instrumentos = new HashMap<>();
@@ -63,7 +69,16 @@ public class SistemaInstrumentos{
     }
 
     public void eliminarInstrumentos(Integer claveAEliminar){
-
+        instrumentos.remove(claveAEliminar);
+        try{
+            List<String> archivoConInstrumentoBorrado=Files.lines(ruta).filter(linea->{
+                String[] lineaDeTexto=linea.split(",");
+                return lineaDeTexto.length>0 && !claveAEliminar.toString().equals(lineaDeTexto[0]);
+            }).collect(Collectors.toList());
+            Files.write(ruta, archivoConInstrumentoBorrado);
+        }catch (IOException aviso){
+            System.out.println("Error al leer el archivo: ");
+        }
     }
 
 
