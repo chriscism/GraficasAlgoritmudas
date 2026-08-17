@@ -1,3 +1,4 @@
+import javax.lang.model.type.ArrayType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class Instrumento{
     public String getName() {
         return nombre;
     }
+
+    public ArrayList<String> getAutores(){ return (ArrayList<String>) autores;}
 
     public void setName(String name) {
         this.nombre = name;
@@ -79,7 +82,7 @@ public class Instrumento{
         for(String a:autores)
             autoresStringBuilder.append(a + ", ");
 
-        return  "Nombre: "  + nombre + "\n"  + "Forma: " + forma + "\n"
+        return "Nombre: "  + nombre + "\n"  + "Forma: " + forma + "\n"
                 + "Identificación: " + identificacion + "\n" +
                 "Condición: " + condicion + "\n" + "Validez: " + validez + "\n"
                 + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.substring(0, autoresStringBuilder.length() - 2).toString();
@@ -88,4 +91,8 @@ public class Instrumento{
     public void ayuda(){
         System.out.println("Me banearon");
     }
+
+//    public List<String> getAutores(){
+//        return autores;
+//    }
 }
