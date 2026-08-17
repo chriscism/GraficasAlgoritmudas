@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class SistemaInstrumentos{
     Map<Integer, Instrumento> instrumentos;
-    private Path ruta;
+    private Path ruta=Path.of("src/instrumentos.txt");
     String archivo = "src/instrumentos.txt";
     public SistemaInstrumentos(){
         instrumentos = new HashMap<>();
@@ -48,9 +48,7 @@ public class SistemaInstrumentos{
                 .forEach(System.out::println);
     }
     public void mostrarPorClave(){
-        instrumentos.entrySet()
-                .stream()
-                .forEach(System.out::println);
+        instrumentos.forEach((clave, instrumento)-> System.out.println("Clave: "+clave+"\n"+instrumento));
     }
 
     public void mostrarOrdenadoPorPrimerAutor(){

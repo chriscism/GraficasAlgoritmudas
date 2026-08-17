@@ -4,7 +4,7 @@ public class UITexto{
     private SistemaInstrumentos sistemaInstrumentos=new SistemaInstrumentos();
     public UITexto(){
         Scanner scn=new Scanner(System.in);
-        int opcion=0;
+        int consulta=0;
         do{
             System.out.println("Ingrese el tipo de consulta\n" +
                     "1.- Por autor\n" +
@@ -19,7 +19,6 @@ public class UITexto{
                     "10.- Eliminar Instrumento\n" +
                     "11.- Salir");
             boolean esNumero=true;
-            int consulta=0;
             do{
                 if((scn.hasNextInt())){
                     consulta=scn.nextInt();
@@ -144,12 +143,24 @@ public class UITexto{
                     sistemaInstrumentos.guardarEnArchivo(nuevo);
                     System.out.println("Instrumento registrado");
                     break;
+                case 10:
+                    System.out.print("Ingrese la clave del instrumento a eliminar: ");
+                    if(scn.hasNextInt()){
+                        int claveBorrar = scn.nextInt();
+                        scn.nextLine();
+                        sistemaInstrumentos.eliminarInstrumentos(claveBorrar);
+                        System.out.println("Instrumento eliminado");
+                    }else{
+                        System.out.println("Clave no válida.");
+                        scn.nextLine();
+                    }
+                    break;
                 case 11:
                     System.out.println("Gracias por usar el sistema, regrese pronto");
                     break;
                 default:
                     System.out.println("Esa no es una opcion valida");
             }
-        }while(opcion!=11);
+        }while(consulta!=11);
     }
 }
