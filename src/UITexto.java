@@ -15,7 +15,9 @@ public class UITexto{
                     "6.- Ordenarlos por clave\n" +
                     "7.- Ordenar por primer autor\n" +
                     "8.- Mostrar por condición y validez\n" +
-                    "9.- Salir");
+                    "9.- Registrar instrumento\n" +
+                    "10.- Eliminar Instrumento\n" +
+                    "11.- Salir");
             boolean esNumero=true;
             int consulta=0;
             do{
@@ -93,11 +95,61 @@ public class UITexto{
                     sistemaInstrumentos.mostrarPorCondicionYValidez(condVal, tieneValidez);
                     break;
                 case 9:
+                    System.out.print("Nombre del instrumento: ");
+                    String nombre=scn.nextLine();
+
+                    System.out.print("Identificación (1.- identificar, 2.- manejar: ");
+                    int id=0;
+                    boolean puedeSeguir=false;
+                    while(!puedeSeguir){
+                        if(scn.hasNextInt()){
+                            id=scn.nextInt();
+                            scn.nextLine();
+                            puedeSeguir=true;
+                        }else{
+                            scn.nextLine();
+                            System.out.println("Valor inválido");
+                            puedeSeguir=false;
+                        }
+                    }
+                    System.out.print("Condición: ");
+                    String cond=scn.nextLine();
+
+                    System.out.print("¿Tiene validez? (1.- Sí /2.- No): ");
+                    boolean esValido;
+                    if (scn.hasNextInt()) {
+                        int op=scn.nextInt();
+                        scn.nextLine();
+                        esValido=op==1;
+                    }else{
+                        String resp=scn.nextLine().trim().toLowerCase();
+                        esValido=resp.equals("si") || resp.equals("sí") || resp.equals("1");
+                    }
+
+                    System.out.print("Cita bibliográfica: ");
+                    String cita = scn.nextLine();
+
+                    System.out.print("Forma del instrumento: ");
+                    String formaInst=scn.nextLine();
+
+                    Instrumento nuevo=new Instrumento(nombre, id, cond, esValido, cita, formaInst);
+
+                    System.out.print("Ingrese los autores separados por coma (ej. Autor 1;Autor 2): ");
+                    String[] listaAutores = scn.nextLine().split(";");
+                    for(String a:listaAutores){
+                        if(!a.trim().isEmpty()){
+                            nuevo.anadirAutor(a.trim());
+                        }
+                    }
+                    sistemaInstrumentos.guardarEnArchivo(nuevo);
+                    System.out.println("Instrumento registrado");
+                    break;
+                case 11:
                     System.out.println("Gracias por usar el sistema, regrese pronto");
                     break;
                 default:
                     System.out.println("Esa no es una opcion valida");
             }
-        }while(opcion!=9);
+        }while(opcion!=11);
     }
 }
