@@ -77,11 +77,15 @@ public class Instrumento{
         String autor = "";
         StringBuilder autoresStringBuilder = new StringBuilder(autor);
         for(String a:autores)
-            autoresStringBuilder.append(a + "\n");
+            autoresStringBuilder.append(a + ", ");
 
         return  "Nombre: "  + nombre + "\n"  + "Forma: " + forma + "\n"
                 + "Identificación: " + identificacion + "\n" +
                 "Condición: " + condicion + "\n" + "Validez: " + validez + "\n"
-                + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.toString();
+                + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.substring(0, autoresStringBuilder.length() - 2).toString();
+    }
+
+    public void ayuda(){
+        System.out.println("Me banearon");
     }
 }
