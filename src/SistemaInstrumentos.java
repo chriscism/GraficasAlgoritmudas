@@ -1,17 +1,12 @@
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.Random;
+
 
 public class SistemaInstrumentos{
     private Map<Integer, Instrumento> instrumentos;
-    private Path ruta=Path.of("src/instrumentos.txt");
-    String archivo = "src/instrumentos.txt";
+    private Path ruta = Path.of("src/instrumentos.txt");
     public SistemaInstrumentos(){
         instrumentos = new HashMap<>();
     }
@@ -21,6 +16,10 @@ public class SistemaInstrumentos{
     }
     public void actualizarInstrumentos(HashMap<Integer, Instrumento> instrumentos){
         this.instrumentos = instrumentos;
+    }
+
+    public void eliminarInstrumento(Integer clave){
+        instrumentos.remove(clave);
     }
 
 
@@ -76,18 +75,18 @@ public class SistemaInstrumentos{
                 .forEach(System.out::println);
     }
 
-    public void eliminarInstrumentos(Integer claveAEliminar){
-        instrumentos.remove(claveAEliminar);
-        try{
-            List<String> archivoConInstrumentoBorrado=Files.lines(ruta).filter(linea->{
-                String[] lineaDeTexto=linea.split(",");
-                return lineaDeTexto.length>0 && !claveAEliminar.toString().equals(lineaDeTexto[0]);
-            }).collect(Collectors.toList());
-            Files.write(ruta, archivoConInstrumentoBorrado);
-        }catch (IOException aviso){
-            System.out.println("Error al leer el archivo: ");
-        }
-    }
+//    public void eliminarInstrumentos(Integer claveAEliminar){
+//        instrumentos.remove(claveAEliminar);
+//        try{
+//            List<String> archivoConInstrumentoBorrado=Files.lines(ruta).filter(linea->{
+//                String[] lineaDeTexto=linea.split(",");
+//                return lineaDeTexto.length>0 && !claveAEliminar.toString().equals(lineaDeTexto[0]);
+//            }).collect(Collectors.toList());
+//            Files.write(ruta, archivoConInstrumentoBorrado);
+//        }catch (IOException aviso){
+//            System.out.println("Error al leer el archivo: ");
+//        }
+//    }
 
     /*
     El proposito de este metodo es guardar en el archivo de texto el nuevo instrumento agregado

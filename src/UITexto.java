@@ -151,7 +151,8 @@ public class UITexto{
                     if(scn.hasNextInt()){
                         int claveBorrar = scn.nextInt();
                         scn.nextLine();
-                        sistemaInstrumentos.eliminarInstrumentos(claveBorrar);
+                        archivo.eliminarInstrumentos(claveBorrar);
+                        sistemaInstrumentos.eliminarInstrumento(claveBorrar);
                         System.out.println("Instrumento eliminado");
                     }else{
                         System.out.println("Clave no válida.");

@@ -1,9 +1,13 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class GestorArchivo {
-
+    private Path ruta = Path.of("src/instrumentos.txt");
     private String archivo;
 
     public GestorArchivo(){
@@ -104,6 +108,19 @@ public class GestorArchivo {
         }
 
         return instrumentos;
+    }
+
+
+    public void eliminarInstrumentos(Integer claveAEliminar){
+        try{
+            List<String> archivoConInstrumentoBorrado= Files.lines(ruta).filter(linea->{
+                String[] lineaDeTexto=linea.split(",");
+                return lineaDeTexto.length>0 && !claveAEliminar.toString().equals(lineaDeTexto[0]);
+            }).collect(Collectors.toList());
+            Files.write(ruta, archivoConInstrumentoBorrado);
+        }catch (IOException aviso){
+            System.out.println("Error al leer el archivo: ");
+        }
     }
 
 
