@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 public class UITexto{
     private SistemaInstrumentos sistemaInstrumentos=new SistemaInstrumentos();
+    private GestorArchivo archivo;
     public UITexto(){
+        archivo = new GestorArchivo();
+        sistemaInstrumentos.actualizarInstrumentos(archivo.obtenerInstrumentos());
         Scanner scn=new Scanner(System.in);
         int consulta=0;
         do{
@@ -140,7 +143,7 @@ public class UITexto{
                             nuevo.anadirAutor(a.trim());
                         }
                     }
-                    sistemaInstrumentos.guardarEnArchivo(nuevo);
+                    sistemaInstrumentos.actualizarInstrumentos(archivo.guardarInstrumentos(sistemaInstrumentos.getInstrumentos(),nuevo));
                     System.out.println("Instrumento registrado");
                     break;
                 case 10:
