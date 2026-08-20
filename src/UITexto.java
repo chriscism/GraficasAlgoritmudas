@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 public class UITexto{
     private SistemaInstrumentos sistemaInstrumentos=new SistemaInstrumentos();
+    private GestorArchivo archivo;
     public UITexto(){
+        archivo = new GestorArchivo();
+        sistemaInstrumentos.actualizarInstrumentos(archivo.obtenerInstrumentos());
         Scanner scn=new Scanner(System.in);
         int consulta=0;
         do{
@@ -140,7 +143,7 @@ public class UITexto{
                             nuevo.anadirAutor(a.trim());
                         }
                     }
-                    sistemaInstrumentos.guardarEnArchivo(nuevo);
+                    sistemaInstrumentos.actualizarInstrumentos(archivo.guardarInstrumentos(sistemaInstrumentos.getInstrumentos(),nuevo));
                     System.out.println("Instrumento registrado");
                     break;
                 case 10:
@@ -148,7 +151,8 @@ public class UITexto{
                     if(scn.hasNextInt()){
                         int claveBorrar = scn.nextInt();
                         scn.nextLine();
-                        sistemaInstrumentos.eliminarInstrumentos(claveBorrar);
+                        archivo.eliminarInstrumentos(claveBorrar);
+                        sistemaInstrumentos.eliminarInstrumento(claveBorrar);
                         System.out.println("Instrumento eliminado");
                     }else{
                         System.out.println("Clave no válida.");
