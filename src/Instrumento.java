@@ -88,9 +88,9 @@ public class Instrumento{
                 + "Cita: " + cita + "\n" + "Autores: " + autoresStringBuilder.substring(0, autoresStringBuilder.length() - 2).toString();
     }
 
-    public void ayuda(){
-        System.out.println("Me banearon");
-    }
+   // public void ayuda(){
+     //   System.out.println("Me banearon");
+    //}
 
 //    public List<String> getAutores(){
 //        return autores;

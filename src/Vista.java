@@ -18,7 +18,7 @@ public class Vista {
     }
 
     public void mostrarMenu(){
-        System.out.println("SISTEMA APA\n1. Registrar instrumento\n2. Eliminar instrumento\n3. Realizar consultas");
+        System.out.println("SISTEMA APA\n1. Registrar instrumento\n2. Eliminar instrumento\n3. Realizar consultas\n4. Salir");
     }
 
     public void mostrarSubMenu(){
