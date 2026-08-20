@@ -1,7 +1,10 @@
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class SistemaInstrumentos{
@@ -23,36 +26,37 @@ public class SistemaInstrumentos{
     }
 
 
-    public void mostrarPorAutor(String nombreAutor){
-        instrumentos.entrySet().stream().filter(i->i.getValue().getAutores().contains(nombreAutor)).forEach(System.out::println);
+    public ArrayList<Instrumento> mostrarPorAutor(String nombreAutor){
+        return instrumentos.values().stream().filter(i->i.getAutores().contains(nombreAutor)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void mostrarPorIdentificacion(int identificacion){
-        instrumentos.entrySet().stream()
-                .filter(i -> i.getValue().getIdentificacion() == identificacion)
-                .forEach(System.out::println);
+    public ArrayList<Instrumento> mostrarPorIdentificacion(int identificacion){
+       return instrumentos.values().stream()
+                .filter(i -> i.getIdentificacion() == identificacion)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void mostrarPorForma(String forma){
-        instrumentos.entrySet()
+    public ArrayList<Instrumento> mostrarPorForma(String forma){
+       return instrumentos.values()
                 .stream()
-                .filter(i -> i.getValue().getForma().equals(forma))
-                .forEach(System.out::println);
+                .filter(i -> i.getForma().equals(forma))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void mostrarPorCondicion(String condicion){
-        instrumentos.entrySet()
+    public ArrayList<Instrumento> mostrarPorCondicion(String condicion){
+       return instrumentos.values()
                 .stream()
-                .filter(i -> i.getValue().getCondicion().equals(condicion))
-                .forEach(System.out::println);
+                .filter(i -> i.getCondicion().equals(condicion))
+               .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void mostrarPorValidez(boolean validez){
-        instrumentos.entrySet()
+    public ArrayList<Instrumento> mostrarPorValidez(boolean validez){
+       return instrumentos.values()
                 .stream()
-                .filter(i -> i.getValue().isTieneValidez() == validez)
-                .forEach(System.out::println);
+                .filter(i -> i.isTieneValidez() == validez)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
+    // este no le se
     public void mostrarPorClave(){
         instrumentos.forEach((clave, instrumento)-> System.out.println("Clave: "+clave+"\n"+instrumento));
     }
@@ -68,11 +72,11 @@ public class SistemaInstrumentos{
                 .forEach(System.out::println);
     }
 
-    public void mostrarPorCondicionYValidez(String condicion, boolean tieneValidez){
-        instrumentos.entrySet()
+    public ArrayList<Instrumento> mostrarPorCondicionYValidez(String condicion, boolean tieneValidez){
+       return instrumentos.values()
                 .stream()
-                .filter(i -> i.getValue().getCondicion().equals(condicion) && i.getValue().isTieneValidez() == tieneValidez)
-                .forEach(System.out::println);
+                .filter(i -> i.getCondicion().equals(condicion) && i.isTieneValidez() == tieneValidez)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
 //    public void eliminarInstrumentos(Integer claveAEliminar){
