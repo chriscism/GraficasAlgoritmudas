@@ -61,15 +61,15 @@ public class SistemaInstrumentos{
         instrumentos.forEach((clave, instrumento)-> System.out.println("Clave: "+clave+"\n"+instrumento));
     }
 
-    public void mostrarOrdenadoPorPrimerAutor(){
-        instrumentos.entrySet()
+    public ArrayList<Instrumento> mostrarOrdenadoPorPrimerAutor(){
+       return instrumentos.values()
                 .stream()
                 .sorted((entry1, entry2) -> {
-                    String autor1 = entry1.getValue().autores.isEmpty() ? "" : entry1.getValue().autores.get(0);
-                    String autor2 = entry2.getValue().autores.isEmpty() ? "" : entry2.getValue().autores.get(0);
+                    String autor1 = entry1.autores.isEmpty() ? "" : entry1.autores.get(0);
+                    String autor2 = entry2.autores.isEmpty() ? "" : entry2.autores.get(0);
                     return autor1.compareToIgnoreCase(autor2);
                 })
-                .forEach(System.out::println);
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Instrumento> mostrarPorCondicionYValidez(String condicion){
