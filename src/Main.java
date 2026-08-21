@@ -1,5 +1,6 @@
 public class Main{
     public static void main(String[] args){
-        new UITexto();
+        Controlador controlador = new Controlador();
+        controlador.comenzar();
     }
 }
