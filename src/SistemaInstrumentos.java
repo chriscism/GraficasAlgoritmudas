@@ -72,10 +72,10 @@ public class SistemaInstrumentos{
                 .forEach(System.out::println);
     }
 
-    public ArrayList<Instrumento> mostrarPorCondicionYValidez(){
+    public ArrayList<Instrumento> mostrarPorCondicionYValidez(String condicion){
        return instrumentos.values()
                 .stream()
-                .filter(i -> i.getCondicion().equals(condicion) && i.isTieneValidez() == tieneValidez)
+                .filter(i -> i.getCondicion().equals(condicion) && i.isTieneValidez())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
