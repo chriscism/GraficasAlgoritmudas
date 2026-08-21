@@ -50,10 +50,10 @@ public class SistemaInstrumentos{
                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Instrumento> mostrarPorValidez(boolean validez){
+    public ArrayList<Instrumento> mostrarPorValidez(){
        return instrumentos.values()
                 .stream()
-                .filter(i -> i.isTieneValidez() == validez)
+                .filter(Instrumento::isTieneValidez)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
     // este no le se
@@ -72,7 +72,7 @@ public class SistemaInstrumentos{
                 .forEach(System.out::println);
     }
 
-    public ArrayList<Instrumento> mostrarPorCondicionYValidez(String condicion, boolean tieneValidez){
+    public ArrayList<Instrumento> mostrarPorCondicionYValidez(){
        return instrumentos.values()
                 .stream()
                 .filter(i -> i.getCondicion().equals(condicion) && i.isTieneValidez() == tieneValidez)
